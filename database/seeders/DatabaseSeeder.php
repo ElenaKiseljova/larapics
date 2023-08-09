@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Image;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,13 +15,14 @@ class DatabaseSeeder extends Seeder
    */
   public function run(): void
   {
-    // \App\Models\User::factory(10)->create();
+    $images = Storage::allFiles('images');
 
-    // \App\Models\User::factory()->create([
-    //     'name' => 'Test User',
-    //     'email' => 'test@example.com',
-    // ]);
+    foreach ($images as $image) {
+      if (strpos($image, '.DS_Store')) continue;
 
-    Image::factory(6)->create();
+      Image::factory()->create([
+        'file' => $image,
+      ]);
+    }
   }
 }
