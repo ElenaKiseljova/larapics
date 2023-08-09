@@ -18,4 +18,12 @@ class Image extends Model
 
     return $subFolder;
   }
+
+
+  public static function getDimension($image)
+  {
+    [$width, $height] = getimagesize(Storage::path($image));
+
+    return $width . 'x' . $height;
+  }
 }

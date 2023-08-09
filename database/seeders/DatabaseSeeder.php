@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
       Image::factory()->create([
         'file' => $image,
+        'dimension' => Image::getDimension($image),
       ]);
     }
   }
