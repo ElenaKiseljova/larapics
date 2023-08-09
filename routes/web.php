@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ImageController::class, 'index'])->name('images.index');
+
+Route::get('/images/{image:slug}', [ImageController::class, 'show'])->name('images.show');
