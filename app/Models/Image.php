@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -42,5 +43,10 @@ class Image extends Model
   public function permalink()
   {
     return $this->slug ? route('images.show', $this->slug) : '#';
+  }
+
+  public function route($method, $key = 'id'): string
+  {
+    return route("images.{$method}", $this->$key);
   }
 }

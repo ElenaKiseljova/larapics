@@ -26,6 +26,10 @@ class RouteServiceProvider extends ServiceProvider
   public function boot(): void
   {
     Route::bind('image', function ($value): Image {
+      if (is_numeric($value)) {
+        return Image::where('id', $value)->firstOrFail();
+      }
+
       return Image::where('slug', $value)->published()->firstOrFail();
     });
 

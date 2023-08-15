@@ -11,5 +11,10 @@
     <a href="{{ $image->permalink() }}" class="">
       <img src="{{ $image->fileUrl() }}" alt="{{ $image->title }}" width="300" />
     </a>
+
+    <div class="">
+      <a href="{{ $image->route('edit') }}" class="">
+        Edit </a>
+    </div>
   </div>
 @endforeach

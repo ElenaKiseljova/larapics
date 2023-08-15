@@ -33,4 +33,17 @@ class ImageController extends Controller
     // return redirect()->route('images.index')->with('message', 'Image has been uploaded successfully');
     return to_route('images.index')->with('message', 'Image has been uploaded successfully');
   }
+
+  public function edit(Image $image): View
+  {
+    return view('image.edit', compact('image'));
+  }
+
+  public function update(Image $image, ImageRequest $request)
+  {
+    $image->update($request->getData());
+
+    // return redirect()->route('images.index')->with('message', 'Image has been uploaded successfully');
+    return to_route('images.index')->with('message', 'Image has been updated successfully');
+  }
 }
