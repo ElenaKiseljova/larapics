@@ -15,6 +15,12 @@
     <div class="">
       <a href="{{ $image->route('edit') }}" class="">
         Edit </a>
+
+      <form action="{{ $image->route('destroy') }}" method="POST" style="display: inline;">
+        @csrf
+        @method('DELETE')
+        <button onclick="return confirm('Are you sure?')">Delete</button>
+      </form>
     </div>
   </div>
 @endforeach
