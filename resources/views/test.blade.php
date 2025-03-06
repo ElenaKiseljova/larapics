@@ -9,7 +9,10 @@
 </head>
 
 <body>
-  <x-icon />
+  @php
+    $src = 'logo.svg';
+  @endphp
+  <x-icon :icon-src="$src" />
 
   <x-ui.button />
 </body>
