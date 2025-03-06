@@ -19,11 +19,11 @@
 
   <x-ui.button />
 
-  <x-alert type="warning" dismissible id="my-alert" class="mt-4 d-flex align-items-center" role="flash">
-    {{-- <x-slot name="title">Success</x-slot> --}}
+  <x-alert type="warning" dismissible id="my-alert" class="mt-4" role="flash">
+    <x-slot name="title">Success</x-slot>
     {{-- <x-slot:title>Success</x-slot> --}}
 
-    {{ $component->icon() }}
+    {{-- {{ $component->icon() }} --}}
     {{-- {{ $component->icon(asset('icons/heart.svg')) }} --}}
 
     <p class="mb-0">Data has been removed. {{ $component->link('Undo') }}</p>
