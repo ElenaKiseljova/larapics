@@ -1,25 +1,28 @@
-<h1>All images</h1>
+<x-layout title="Discover free images">
+  <h1>All images</h1>
 
-<a href="{{ route('images.create') }}">Upload Image</a>
+  <a href="{{ route('images.create') }}">Upload Image</a>
 
-@if ($message = session('message'))
-  <div class="">{{ $message }}</div>
-@endif
+  @if ($message = session('message'))
+    <div class="">{{ $message }}</div>
+  @endif
 
-@foreach ($images as $image)
-  <div class="">
-    <a href="{{ $image->permalink() }}" class="">
-      <img src="{{ $image->fileUrl() }}" alt="{{ $image->title }}" width="300" />
-    </a>
-
+  @foreach ($images as $image)
     <div class="">
-      <a href="{{ $image->route('edit') }}" class="">
-        Edit
+      <a href="{{ $image->permalink() }}" class="">
+        <img src="{{ $image->fileUrl() }}" alt="{{ $image->title }}" width="300" />
       </a>
 
-      <x-form action="{{ $image->route('destroy') }}" method="delete" style="display: inline;">
-        <button onclick="return confirm('Are you sure?')">Delete</button>
-      </x-form>
+      <div class="">
+        <a href="{{ $image->route('edit') }}" class="">
+          Edit
+        </a>
+
+        <x-form action="{{ $image->route('destroy') }}" method="delete" style="display: inline;">
+          <button onclick="return confirm('Are you sure?')">Delete</button>
+        </x-form>
+      </div>
     </div>
-  </div>
-@endforeach
+  @endforeach
+
+</x-layout>
