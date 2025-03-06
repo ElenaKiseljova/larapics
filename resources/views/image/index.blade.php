@@ -1,28 +1,29 @@
 <x-layout title="Discover free images">
-  <h1>All images</h1>
+  <div class="container-fluid mt-4">
+    @if ($message = session('message'))
+      <x-alert type="success" dismissible>
+        {{ $component->icon() }}
+        {{ $message }}
+      </x-alert>
+    @endif
 
-  <a href="{{ route('images.create') }}">Upload Image</a>
+    <div class="row" data-masonry='{"percentPosition": true }'>
+      @foreach ($images as $image)
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card">
+            <a href="{{ $image->permalink() }}"><img src="{{ $image->fileUrl() }}" height="100%" alt="{{ $image->title }}"
+                class="card-img-top"></a>
+            <div class="photo-buttons">
+              <a href="{{ $image->route('edit') }}" class="btn btn-sm btn-info me-2">Edit</a>
 
-  @if ($message = session('message'))
-    <div class="">{{ $message }}</div>
-  @endif
-
-  @foreach ($images as $image)
-    <div class="">
-      <a href="{{ $image->permalink() }}" class="">
-        <img src="{{ $image->fileUrl() }}" alt="{{ $image->title }}" width="300" />
-      </a>
-
-      <div class="">
-        <a href="{{ $image->route('edit') }}" class="">
-          Edit
-        </a>
-
-        <x-form action="{{ $image->route('destroy') }}" method="delete" style="display: inline;">
-          <button onclick="return confirm('Are you sure?')">Delete</button>
-        </x-form>
-      </div>
+              <x-form action="{{ $image->route('destroy') }}" method="delete">
+                <button onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>
+              </x-form>
+            </div>
+          </div>
+        </div>
+      @endforeach
     </div>
-  @endforeach
-
+    {{ $images->links() }}
+  </div>
 </x-layout>
