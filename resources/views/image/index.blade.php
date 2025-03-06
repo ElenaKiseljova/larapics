@@ -14,13 +14,12 @@
 
     <div class="">
       <a href="{{ $image->route('edit') }}" class="">
-        Edit </a>
+        Edit
+      </a>
 
-      <form action="{{ $image->route('destroy') }}" method="POST" style="display: inline;">
-        @csrf
-        @method('DELETE')
+      <x-form action="{{ $image->route('destroy') }}" method="delete" style="display: inline;">
         <button onclick="return confirm('Are you sure?')">Delete</button>
-      </form>
+      </x-form>
     </div>
   </div>
 @endforeach

@@ -1,8 +1,6 @@
 <h1>Upload new Image</h1>
 
-<form action="{{ route('images.store') }}" method="POST" enctype="multipart/form-data">
-  @csrf
-
+<x-form action="{{ route('images.store') }}" method="post" enctype="multipart/form-data">
   <div class="">
     <label for="file">
       File
@@ -26,4 +24,4 @@
   </div>
 
   <button type="submit">Upload</button>
-</form>
+</x-form>
