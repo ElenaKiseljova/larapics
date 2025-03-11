@@ -6,6 +6,7 @@ use App\Http\Requests\ImageRequest;
 use App\Models\Image;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ImageController extends Controller
 {
@@ -36,9 +37,16 @@ class ImageController extends Controller
 
     public function edit(Image $image): View
     {
-        if (request()->user()->id !== $image->user_id) {
-            abort(403, 'Access denied');
-        }
+        // 1
+        // if (!Gate::allows('update-image', $image)) {
+        //     abort(403, 'Access denied');
+        // }
+
+        // 2
+        // Gate::authorize('update-image', $image);
+
+        // 3
+        $this->authorize('update-image', $image);
 
         return view('image.edit', compact('image'));
     }
@@ -53,7 +61,7 @@ class ImageController extends Controller
 
     public function destroy(Image $image)
     {
-        if (request()->user()->id !== $image->user_id) {
+        if (Gate::denies('delete-image', $image)) {
             abort(403, 'Access denied');
         }
 
