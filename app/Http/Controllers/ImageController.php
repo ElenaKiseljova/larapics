@@ -48,6 +48,12 @@ class ImageController extends Controller
         // 3
         $this->authorize('update-image', $image);
 
+        // can()
+        // cannot()
+        // forUser()
+        // any()
+        // none()
+
         return view('image.edit', compact('image'));
     }
 
