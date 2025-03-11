@@ -46,7 +46,10 @@ class ImageController extends Controller
         // Gate::authorize('update-image', $image);
 
         // 3
-        $this->authorize('update-image', $image);
+        // $this->authorize('update-image', $image);
+
+        // 4
+        $this->authorize('update', $image);
 
         // can()
         // cannot()
@@ -59,6 +62,8 @@ class ImageController extends Controller
 
     public function update(Image $image, ImageRequest $request)
     {
+        $this->authorize('update', $image);
+
         $image->update($request->getData());
 
         // return redirect()->route('images.index')->with('message', 'Image has been uploaded successfully');
@@ -67,9 +72,8 @@ class ImageController extends Controller
 
     public function destroy(Image $image)
     {
-        if (Gate::denies('delete-image', $image)) {
-            abort(403, 'Access denied');
-        }
+        // 4
+        $this->authorize('delete', $image);
 
         $image->delete();
 
