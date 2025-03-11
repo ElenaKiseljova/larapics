@@ -6,28 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('socials', function (Blueprint $table) {
-            $table->id();
-            $table->string('facebook')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('twitter')->nullable();
-            $table->string('website')->nullable();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->unique('user_id');
-            $table->timestamps();
-        });
-    }
+  /**
+   * Run the migrations.
+   */
+  public function up(): void
+  {
+    Schema::create('socials', function (Blueprint $table) {
+      $table->id();
+      $table->string('facebook')->nullable();
+      $table->string('instagram')->nullable();
+      $table->string('twitter')->nullable();
+      $table->string('website')->nullable();
+      $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+      $table->unique('user_id');
+      $table->timestamps();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('socials');
-    }
+  /**
+   * Reverse the migrations.
+   */
+  public function down(): void
+  {
+    Schema::dropIfExists('socials');
+  }
 };
