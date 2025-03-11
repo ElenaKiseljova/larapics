@@ -22,7 +22,13 @@ Route::get('/images/{image}', [ImageController::class, 'show'])->name('images.sh
 Route::get('/images/', [ImageController::class, 'create'])->name('images.create');
 Route::post('/images/', [ImageController::class, 'store'])->name('images.store');
 
-Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
+Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit')
+    // 6
+    // ->middleware('can:update,image')
+
+    // 7
+    // ->can('update', 'image')
+;
 Route::put('/images/{image}', [ImageController::class, 'update'])->name('images.update');
 Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 

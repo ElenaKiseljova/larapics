@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Gate;
 
 class ImageController extends Controller
 {
+    public function __construct()
+    {
+        // $this->authorizeResource(Image::class, 'image');
+        $this->authorizeResource(Image::class);
+    }
+
     public function index()
     {
         $images = Image::published()->latest()->paginate(15)->withQueryString();
@@ -49,7 +55,12 @@ class ImageController extends Controller
         // $this->authorize('update-image', $image);
 
         // 4
-        $this->authorize('update', $image);
+        // $this->authorize('update', $image);
+
+        // 5
+        // if (request()->user()->cannot('update', $image)) {
+        //     abort(403, 'Access denied');
+        // }
 
         // can()
         // cannot()
@@ -62,7 +73,8 @@ class ImageController extends Controller
 
     public function update(Image $image, ImageRequest $request)
     {
-        $this->authorize('update', $image);
+        // 4
+        // $this->authorize('update', $image);
 
         $image->update($request->getData());
 
@@ -73,7 +85,7 @@ class ImageController extends Controller
     public function destroy(Image $image)
     {
         // 4
-        $this->authorize('delete', $image);
+        // $this->authorize('delete', $image);
 
         $image->delete();
 
