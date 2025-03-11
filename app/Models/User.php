@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function social()
     {
-        return $this->hasOne(Social::class); // (Social::class, 'id_user', '_id');
+        return $this->hasOne(Social::class)->withDefault(); // (Social::class, 'id_user', '_id');
     }
 
     public function getImagesCount()
