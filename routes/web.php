@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ListImageController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShowImageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,9 @@ Auth::routes();
 Route::get('/', ListImageController::class)->name('images.all');
 Route::get('/images/{image}', ShowImageController::class)->name('images.show');
 Route::resource('/account/images', ImageController::class)->except('show');
+
+Route::get('/account/settings', [SettingsController::class, 'edit'])->name('settings.edit');
+Route::put('/account/settings', [SettingsController::class, 'update'])->name('settings.update');
 
 // Route::get('/images', [ImageController::class, 'index'])->name('images.index');
 // Route::get('/images/create', [ImageController::class, 'create'])->name('images.create');
