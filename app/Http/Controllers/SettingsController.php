@@ -18,8 +18,8 @@ class SettingsController extends Controller
 
   public function update(UpdateSettingsRequest $request)
   {
-    dd($request->all());
+    $request->user()->updateSettings($request->getData());
 
-    // return view('settings', ['user' => auth()->user()]);
+    return back()->with('message', 'Your changes have been saved');
   }
 }

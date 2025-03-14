@@ -7,10 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Social extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class); // (User::class, 'id_user', '_id');
-    }
+  protected $fillable = [
+    'facebook',
+    'twitter',
+    'instagram',
+    'website',
+    'user_id'
+  ];
+
+  public function user()
+  {
+    return $this->belongsTo(User::class); // (User::class, 'id_user', '_id');
+  }
 }

@@ -35,4 +35,9 @@ class UpdateSettingsRequest extends FormRequest
       'social.website' => 'Website',
     ];
   }
+
+  public function getData()
+  {
+    return $this->validated();
+  }
 }
