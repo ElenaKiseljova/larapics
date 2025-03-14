@@ -19,12 +19,7 @@
   </section>
 
   <div class="container-fluid mt-4">
-    @if ($message = session('message'))
-      <x-alert type="success" dismissible>
-        {{ $component->icon() }}
-        {{ $message }}
-      </x-alert>
-    @endif
+    <x-flash-message />
 
     <div class="row" data-masonry='{"percentPosition": true }'>
       @foreach ($images as $image)
