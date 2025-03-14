@@ -72,6 +72,11 @@ class User extends Authenticatable
     return $this->hasMany(Image::class);
   }
 
+  public function setting()
+  {
+    return $this->hasOne(Setting::class)->withDefault(); // (Setting::class, 'id_user', '_id');
+  }
+
   public function social()
   {
     return $this->hasOne(Social::class)->withDefault(); // (Social::class, 'id_user', '_id');
@@ -97,5 +102,17 @@ class User extends Authenticatable
     $imagesCount = $this->images()->published()->count();
 
     return $imagesCount . ' ' . str()->plural('image', $imagesCount);
+  }
+
+  protected static function booted()
+  {
+    static::created(function ($user) {
+      $user->setting()->create([
+        'email_notification' => [
+          'new_comment' => 1,
+          'new_image' => 1
+        ]
+      ]);
+    });
   }
 }
