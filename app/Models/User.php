@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -133,7 +134,26 @@ class User extends Authenticatable
     return !!$this->cover_image;
   }
 
-  static function makeDirectory()
+  public function url()
+  {
+    return route('author.show', $this->username);
+  }
+
+  public function inlineProfile()
+  {
+    // Eding Muhamad Saprudin &nbsp; • &nbsp; Indonesia &nbsp; • &nbsp; Member since Oct. 28, 2017 &nbsp; • &nbsp; 40 images
+    $separator = ' &nbsp; • &nbsp; ';
+
+    return
+      new HtmlString(collect([
+        $this->name,
+        trim(join($separator, [$this->city, $this->country]), $separator),
+        'Member since ' . $this->created_at->toFormattedDateString(),
+        $this->getImagesCount(),
+      ])->filter()->implode($separator));
+  }
+
+  public static function makeDirectory()
   {
     $directory = 'users';
 
