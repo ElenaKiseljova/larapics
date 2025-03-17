@@ -2,41 +2,79 @@
   <div class="container py-4">
     <x-flash-message />
 
-    <x-form action="{{ route('settings.update') }}" method="put">
+    <x-form action="{{ route('settings.update') }}" method="put" enctype="multipart/form-data">
       <div class="row gx-5">
         <div class="col-md-6">
           <fieldset>
             <legend>Personal Data</legend>
             <div class="mb-3">
               <label class="form-label" for="username">Username</label>
-              <input type="text" name="user[username]" id="username" class="form-control is-invalid">
-              <div class="invalid-feedback">
-                Please choose a username.
-              </div>
+              <input type="text" name="user[username]" id="username"
+                class="form-control @error('user.username') is-invalid @enderror"
+                value="{{ old('user.username', $user->username) }}">
+              @error('user.username')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
             <div class="mb-3">
               <label class="form-label" for="name">Full Name</label>
-              <input type="text" name="user[name]" id="name" class="form-control">
+              <input type="text" name="user[name]" id="name"
+                class="form-control @error('user.name') is-invalid @enderror"
+                value="{{ old('user.name', $user->name) }}">
+              @error('user.name')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
             <div class="mb-3">
               <label class="form-label" for="profile_image">Profile Image</label>
-              <input type="file" name="user[profile_image]" id="profile_image" class="form-control">
+              <input type="file" name="user[profile_image]" id="profile_image"
+                class="form-control @error('user.profile_image') is-invalid @enderror"
+                value="{{ old('user.profile_image', $user->profile_image) }}">
+              @error('user.profile_image')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
             <div class="mb-3">
-              <img src="images/user-default.png" width="150" alt="">
+              <img src="{{ $user->profileImageUrl() }}" width="150" alt="{{ $user->name }}">
             </div>
             <div class="mb-3">
               <label class="form-label" for="city">City</label>
-              <input type="text" name="user[city]" id="city" class="form-control">
+              <input type="text" name="user[city]" id="city"
+                class="form-control @error('user.city') is-invalid @enderror"
+                value="{{ old('user.city', $user->city) }}">
+              @error('user.city')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
             <div class="mb-3">
               <label class="form-label" for="country">Country</label>
-              <input type="text" name="user[country]" id="country" class="form-control">
+              <input type="text" name="user[country]" id="country"
+                class="form-control @error('user.country') is-invalid @enderror"
+                value="{{ old('user.country', $user->country) }}">
+              @error('user.country')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
             <div class="mb-3">
               <label class="form-label" for="bio">About me</label>
-              <textarea name="user[bio]" id="biod" rows="3" class="form-control"
-                placeholder="In a few words, tell us about yourself"></textarea>
+              <textarea name="user[about_me]" id="biod" rows="3"
+                class="form-control @error('user.about_me') is-invalid @enderror"
+                placeholder="In a few words, tell us about yourself">{{ old('user.about_me', $user->about_me) }}</textarea>
+              @error('user.about_me')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
           </fieldset>
           <fieldset class="mt-3">
@@ -65,10 +103,19 @@
             <legend>Cover image</legend>
             <div class="mb-3">
               <label class="form-label" for="twitter">Your Cover Image</label>
-              <input type="file" name="user[cover_image]" id="cover_image" class="form-control">
+              <input type="file" name="user[cover_image]" id="cover_image"
+                class="form-control  @error('user.cover_image') is-invalid @enderror"
+                value="{{ old('user.cover_image', $user->cover_image) }}">
+              @error('user.cover_image')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
             </div>
             <div class="mb-3">
-              <img src="https://via.placeholder.com/600x250&text=Cover Image" class="img-fluid" alt="">
+              @if ($user->hasCoverImage())
+                <img src="{{ $user->coverImageUrl() }}" class="img-fluid" alt="{{ $user->name }}">
+              @endif
             </div>
           </fieldset>
           <fieldset class="mt-3">

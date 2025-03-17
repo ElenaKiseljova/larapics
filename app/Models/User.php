@@ -8,6 +8,7 @@ use App\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -23,6 +24,12 @@ class User extends Authenticatable
     'name',
     'email',
     'password',
+    'username',
+    'profile_image',
+    'cover_image',
+    'city',
+    'country',
+    'about_me'
   ];
 
   /**
@@ -48,6 +55,7 @@ class User extends Authenticatable
 
   public function updateSettings($data)
   {
+    $this->update($data['user']);
     $this->updateSocialProfile($data['social']);
     $this->updateOptions($data['options']);
   }
@@ -108,6 +116,30 @@ class User extends Authenticatable
     $imagesCount = $this->images()->published()->count();
 
     return $imagesCount . ' ' . str()->plural('image', $imagesCount);
+  }
+
+  public function profileImageUrl()
+  {
+    return Storage::url($this->profile_image ? $this->profile_image : 'images/user-default.png');
+  }
+
+  public function coverImageUrl()
+  {
+    return Storage::url($this->cover_image);
+  }
+
+  public function hasCoverImage()
+  {
+    return !!$this->cover_image;
+  }
+
+  static function makeDirectory()
+  {
+    $directory = 'users';
+
+    Storage::makeDirectory($directory);
+
+    return $directory;
   }
 
   protected static function booted()
