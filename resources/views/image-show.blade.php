@@ -6,9 +6,9 @@
           <img src="{{ $image->fileUrl() }}" alt="{{ $image->title }}" class="img-fluid" />
         </div>
 
-        {{-- @include('image._related-images')
+        {{-- @include('image._related-images') --}}
 
-        @include('image._comments') --}}
+        @include('image._comments')
       </div>
       <div class="col-md-3">
         <div class="d-flex align-items-center mb-3">

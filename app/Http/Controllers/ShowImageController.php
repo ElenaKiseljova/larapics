@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 
 class ShowImageController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(Image $image, Request $request)
-    {
-        return view('image-show', compact('image'));
-    }
+  /**
+   * Handle the incoming request.
+   */
+  public function __invoke(Image $image, Request $request)
+  {
+    $image->load(['comments', 'comments.user']);
+
+    return view('image-show', compact('image'));
+  }
 }
