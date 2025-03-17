@@ -153,6 +153,17 @@ class User extends Authenticatable
       ])->filter()->implode($separator));
   }
 
+  public function socialList()
+  {
+    return
+      collect([
+        'facebook' => $this->social->facebook,
+        'instagram' => $this->social->instagram,
+        'twitter' => $this->social->twitter,
+        'website' => $this->social->website,
+      ])->filter();
+  }
+
   public static function makeDirectory()
   {
     $directory = 'users';

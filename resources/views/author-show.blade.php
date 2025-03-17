@@ -10,68 +10,26 @@
         <img src="{{ $user->profileImageUrl() }}" width="150" class="rounded-circle" alt="{{ $user->name }}">
         <div class="mt-3">
           <ul class="list-unstyled list-inline">
-            <li class="list-inline-item">
-              <a href="#" title="Facebook"><img src="icons/facebook.svg" alt=""></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#" title="Twitter"><img src="icons/twitter.svg" alt=""></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#" title="Instagram"><img src="icons/instagram.svg" alt=""></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#" title="Website"><img src="icons/website.svg" alt=""></a>
-            </li>
+            @foreach ($user->socialList() as $key => $social)
+              <li class="list-inline-item">
+                <a href="{{ $social }}" title="{{ ucfirst($key) }}">
+                  <x-icon iconSrc="{{ $key }}.svg" alt="{{ ucfirst($key) }}" />
+                </a>
+              </li>
+            @endforeach
           </ul>
         </div>
       </div>
     </div>
   </section>
   <div class="container-fluid mt-4">
-    <div class="row" data-masonry='{"percentPosition": true }'>
-      <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card">
-          <a href="show.html"><img src="images/img1.jpeg" height="100%" alt="Image 1" class="card-img-top"></a>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card">
-          <a href="show.html"><img src="images/img2.jpeg" height="100%" alt="Image 2" class="card-img-top"></a>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card">
-          <a href="show.html"><img src="images/img3.jpeg" height="100%" alt="Image 3" class="card-img-top"></a>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card">
-          <a href="show.html"><img src="images/img4.jpeg" height="100%" alt="Image 4" class="card-img-top"></a>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card">
-          <a href="show.html"><img src="images/img5.jpeg" height="100%" alt="Image 5" class="card-img-top"></a>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card">
-          <a href="show.html"><img src="images/img6.jpeg" height="100%" alt="Image 6" class="card-img-top"></a>
-        </div>
-      </div>
-    </div>
-    <nav class="mt-4">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </nav>
+    @if ($images->count())
+      @include('shared._grid-images', ['images' => $images])
+    @else
+      <x-alert type="warning">
+        <h4 class="alert-heading">Wow</h4>
+        <p>That's a very clean portfolio!</p>
+      </x-alert>
+    @endif
   </div>
 </x-layout>
