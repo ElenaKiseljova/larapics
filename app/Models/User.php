@@ -87,6 +87,11 @@ class User extends Authenticatable
     return $this->hasMany(Image::class);
   }
 
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
   public function setting()
   {
     return $this->hasOne(Setting::class)->withDefault(); // (Setting::class, 'id_user', '_id');
