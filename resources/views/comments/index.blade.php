@@ -32,12 +32,17 @@
             <td>
               <x-form method="put" action="{{ route('comments.update', $comment->id) }}" style="display:inline;">
                 <input type="hidden" name="approved" value="{{ $comment->approved ? 0 : 1 }}">
-                <button class="btn btn-sm btn-outline-success">
+                <button class="btn btn-sm btn-outline-{{ $comment->approved ? 'warning' : 'success' }}">
                   {{ $comment->approved ? 'Unapprove' : 'Approve' }}
                 </button>
               </x-form>
               <a href="#" class="btn btn-sm btn-outline-primary">Reply</a>
-              <a href="#" class="btn btn-sm btn-outline-danger">Remove</a>
+              <x-form method="delete" action="{{ route('comments.destroy', $comment->id) }}" style="display:inline;"
+                onsubmit="return confirm('Are you sure?')">
+                <button class="btn btn-sm btn-outline-danger">
+                  Remove
+                </button>
+              </x-form>
             </td>
           </tr>
         @endforeach
