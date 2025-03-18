@@ -88,7 +88,9 @@ class CommentController extends Controller
 
     $comment->update();
 
-    return back()->with('message', 'Comment has been ' . ($comment->approved ? 'approved' : 'unapproved'));
+    return back()
+      ->with('updated', $comment->id)
+      ->with('message', 'Comment has been ' . ($comment->approved ? 'approved' : 'unapproved'));
   }
 
   /**

@@ -15,8 +15,11 @@
         </tr>
       </thead>
       <tbody>
+        @php
+          $updated = session('updated');
+        @endphp
         @foreach ($comments as $index => $comment)
-          <tr>
+          <tr class="{{ $updated != $comment->id ? '' : ($comment->approved ? 'table-success' : 'table-danger') }}">
             <td>{{ $comments->firstItem() + $index }}</td>
             <td>{{ $comment->user->name }}</td>
             <td>{{ $comment->body }}</td>
@@ -43,4 +46,16 @@
 
     {{ $comments->links() }}
   </div>
+
+  @push('scripts')
+    <script>
+      setTimeout(() => {
+        const rows = document.querySelectorAll("tr[class^='table-']");
+
+        rows.forEach(row => {
+          row.removeAttribute('class');
+        });
+      }, 1500);
+    </script>
+  @endpush
 </x-layout>
