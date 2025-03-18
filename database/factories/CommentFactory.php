@@ -18,6 +18,7 @@ class CommentFactory extends Factory
   {
     return [
       'body' => fake()->paragraph(),
+      'approved' => mt_rand(0, 1) === 1
     ];
   }
 }
