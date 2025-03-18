@@ -8,7 +8,11 @@
 
         {{-- @include('image._related-images') --}}
 
-        @include('image._comments')
+        @if ($disableComments)
+          <p class="text-muted mt-3">Comments disabled by author.</p>
+        @else
+          @include('image._comments')
+        @endif
       </div>
       <div class="col-md-3">
         <div class="d-flex align-items-center mb-3">
