@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCommentRequest;
+use App\Models\Comment;
 use App\Models\Image;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,12 @@ class CommentController extends Controller
    */
   public function index()
   {
-    //
+    $comments = Comment::forUser(auth()->user())
+      ->with(['user', 'image'])
+      ->latest()
+      ->paginate(10);
+
+    return view('comments.index', compact('comments'));
   }
 
   /**
