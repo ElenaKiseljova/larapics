@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ListImageController;
 use App\Http\Controllers\SettingsController;
@@ -25,6 +26,8 @@ Auth::routes();
 
 Route::get('/', ListImageController::class)->name('images.all');
 Route::get('/images/{image}', ShowImageController::class)->name('images.show');
+Route::post('/images/{image}/comments', [CommentController::class, 'store'])->name('comments.store');
+
 Route::get('/@{user:username}', ShowAuthorController::class)->name('author.show');
 
 Route::resource('/account/images', ImageController::class)->except('show');

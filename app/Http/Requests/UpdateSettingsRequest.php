@@ -46,7 +46,7 @@ class UpdateSettingsRequest extends FormRequest
           }
         }
       ],
-      'account.new_password' => 'confirmed|min:8',
+      'account.new_password' => 'nullable|confirmed|min:8',
       'social.*' => 'nullable|url',
       'options.disable_comments' => 'boolean',
       'options.moderate_comments' => 'boolean',
