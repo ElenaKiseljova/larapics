@@ -82,9 +82,13 @@ class CommentController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, string $id)
+  public function update(Request $request, Comment $comment)
   {
-    //
+    $comment->approved = $request->approved == 1;
+
+    $comment->update();
+
+    return back()->with('message', 'Comment has been ' . ($comment->approved ? 'approved' : 'unapproved'));
   }
 
   /**

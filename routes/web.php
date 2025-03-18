@@ -32,6 +32,7 @@ Route::get('/@{user:username}', ShowAuthorController::class)->name('author.show'
 
 Route::resource('/account/images', ImageController::class)->except('show');
 Route::get('/account/comments', [CommentController::class, 'index'])->name('comments.index');
+Route::put('/account/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
 Route::get('/account/settings', [SettingsController::class, 'edit'])->name('settings.edit');
 Route::put('/account/settings', [SettingsController::class, 'update'])->name('settings.update');
 
